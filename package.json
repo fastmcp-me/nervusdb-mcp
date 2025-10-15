@@ -1,6 +1,6 @@
 {
   "name": "@nervusdb/mcp",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "Official MCP server for NervusDB - Code knowledge graph with repomix integration",
   "private": false,
   "type": "module",

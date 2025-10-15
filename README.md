@@ -21,13 +21,7 @@
 
 ## Quick Start
 
-**Install from npm**
-
-```bash
-npm install -g @nervusdb/mcp
-```
-
-**Or install dependencies for local development**
+**Install Dependencies**
 
 ```bash
 pnpm install
@@ -233,6 +227,7 @@ nervusdb-mcp/
 │   ├── domain/           # Core domain logic (indexing, query)
 │   └── utils/            # Shared utilities
 ├── bin/                  # CLI executables
+├── docs/                 # Documentation
 └── tests/                # Test suites
 ```
 
@@ -252,17 +247,17 @@ pnpm check
 pnpm build
 ```
 
+## Documentation
+
+- [Tools Overview](docs/tools/overview.md) - Detailed documentation for all 13 tools
+- [Architecture Design](docs/architecture/ADR-002-Architecture-Design.md)
+- [Quality Guidelines](docs/quality-guidelines.md)
+- [Build and Release](docs/build-and-release.md)
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
-## Links
-
-- [npm Package](https://www.npmjs.com/package/@nervusdb/mcp)
-- [GitHub Repository](https://github.com/nervusdb/nervusdb-mcp)
-- [Report Issues](https://github.com/nervusdb/nervusdb-mcp/issues)
-- [NervusDB Core](https://github.com/nervusdb/nervusdb)
-
 ## License
 
-MIT - see [LICENSE](LICENSE) for details.
+MIT
