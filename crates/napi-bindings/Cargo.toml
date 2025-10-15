@@ -1,0 +1,19 @@
+[package]
+name = "synapse-parser-napi"
+version = "0.1.0"
+edition = "2021"
+authors = ["NervusDB Contributors"]
+description = "NAPI bindings for Synapse Parser"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = { workspace = true }
+napi-derive = { workspace = true }
+synapse-parser = { path = "../parser" }
+serde_json = { workspace = true }
+
+[build-dependencies]
+napi-build = { workspace = true }

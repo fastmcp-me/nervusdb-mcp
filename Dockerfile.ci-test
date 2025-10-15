@@ -1,0 +1,23 @@
+# CI 测试 Dockerfile - 模拟 GitHub Actions 环境
+# 使用DaoCloud镜像加速
+FROM docker.m.daocloud.io/library/node:20-alpine
+
+# 安装 pnpm v10（与 CI 一致）
+RUN corepack enable && corepack prepare pnpm@10 --activate
+
+# 设置工作目录
+WORKDIR /workspace
+
+# 复制项目文件
+COPY . .
+
+# 运行 CI 检查（使用 BuildKit secret 传递 npm 认证）
+# --mount=type=secret 将 secret 挂载为只读文件，不会保留在镜像层中
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
+  pnpm install --frozen-lockfile && \
+  pnpm run fmt:check && \
+  pnpm run lint && \
+  pnpm test && \
+  pnpm depcheck
+
+CMD ["echo", "All CI checks passed!"]

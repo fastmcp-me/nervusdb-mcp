@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+target/
+dist/
+
+# Build artifacts
+*.tsbuildinfo
+.tsbuildinfo
+
+# Lock files (auto-generated)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+Cargo.lock
+
+# Git
+.git/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store

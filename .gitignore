@@ -1,0 +1,51 @@
+# Node.js
+node_modules/
+dist/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Database
+.synapsedb/
+*.db
+*.db-shm
+*.db-wal
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temp files
+repomix-output.*
+tmp/
+temp/
+
+# Build artifacts
+*.node
+
+# Verdaccio 私有 npm 仓库数据
+verdaccio/storage/
+verdaccio/plugins/

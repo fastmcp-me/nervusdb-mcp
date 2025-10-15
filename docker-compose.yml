@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  synapse-architect:
+    build:
+      context: ..
+      dockerfile: Synapse-Architect/Dockerfile
+    container_name: synapse-architect-mcp
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - SYNAPSE_HOST=0.0.0.0
+      - SYNAPSE_PORT=4000
+    volumes:
+      # Mount projects you want to analyze
+      # Current project (Synapse-Architect itself)
+      - /Volumes/WorkDrive/Develop/github/Synapse-Architect:/projects/synapse-architect:ro
+      
+      # Mount entire workspace for analyzing multiple projects
+      - /Volumes/WorkDrive/Develop/github:/projects/workspace:ro
+      
+      # Persist indexed data
+      - synapse-data:/app/.synapsedb
+    restart: unless-stopped
+    networks:
+      - mcp-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4000', (res) => { process.exit(res.statusCode === 200 ? 0 : 1); });"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  synapse-data:
+    driver: local
+
+networks:
+  mcp-network:
+    driver: bridge

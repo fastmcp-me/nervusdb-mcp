@@ -1,0 +1,4 @@
+#!/bin/sh
+# Layer 2 Automation: Fast pre-commit checks (format + lint)
+
+pnpm lint-staged

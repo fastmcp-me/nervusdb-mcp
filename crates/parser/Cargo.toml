@@ -1,0 +1,54 @@
+[package]
+name = "synapse-parser"
+version = "0.1.0"
+edition = "2021"
+authors = ["NervusDB Contributors"]
+description = "High-performance AST parser for Synapse Architect"
+license = "MIT"
+
+[dependencies]
+tree-sitter = { workspace = true }
+tree-sitter-typescript = { workspace = true }
+tree-sitter-language = "0.1"
+serde = { workspace = true }
+serde_json = { workspace = true }
+lazy_static = "1.4"
+
+# 可选的语言支持（按需启用）
+tree-sitter-python = { version = "0.23", optional = true }
+tree-sitter-go = { version = "0.23", optional = true }
+tree-sitter-rust = { version = "0.23", optional = true }
+tree-sitter-java = { version = "0.23", optional = true }
+tree-sitter-c = { version = "0.23", optional = true }
+tree-sitter-cpp = { version = "0.23", optional = true }
+tree-sitter-c-sharp = { version = "0.23", optional = true }
+tree-sitter-ruby = { version = "0.23", optional = true }
+tree-sitter-php = { version = "0.24", optional = true }
+tree-sitter-swift = { version = "0.6", optional = true }
+tree-sitter-solidity = { git = "https://github.com/JoranHonig/tree-sitter-solidity", optional = true }
+tree-sitter-css = { version = "0.23", optional = true }
+tree-sitter-vue = { git = "https://github.com/tree-sitter-grammars/tree-sitter-vue", optional = true }
+
+[features]
+default = ["python", "go", "rust-lang", "java", "c-lang", "cpp"]
+all-languages = ["python", "go", "rust-lang", "java", "c-lang", "cpp", "csharp", "ruby", "php", "swift", "solidity", "css", "vue"]
+python = ["tree-sitter-python"]
+go = ["tree-sitter-go"]
+rust-lang = ["tree-sitter-rust"]
+java = ["tree-sitter-java"]
+c-lang = ["tree-sitter-c"]
+cpp = ["tree-sitter-cpp"]
+csharp = ["tree-sitter-c-sharp"]
+ruby = ["tree-sitter-ruby"]
+php = ["tree-sitter-php"]
+swift = ["tree-sitter-swift"]
+solidity = ["tree-sitter-solidity"]
+css = ["tree-sitter-css"]
+vue = ["tree-sitter-vue"]
+
+[dev-dependencies]
+criterion = "0.5"
+
+# [[bench]]
+# name = "parser_benchmark"
+# harness = false

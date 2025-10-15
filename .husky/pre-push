@@ -1,0 +1,38 @@
+#!/bin/sh
+# Layer 2 Automation: Slow pre-push checks (Docker CI validation)
+#
+# User requirement: 必须本地docker中运行通过才可以提交
+# This ensures all CI checks pass locally before pushing to remote
+
+echo "🐳 Running Docker CI checks before push..."
+echo "  This may take a few minutes..."
+echo ""
+
+# Check if ~/.npmrc exists (needed for GitHub Packages authentication)
+if [ ! -f "$HOME/.npmrc" ]; then
+  echo "⚠️  Warning: ~/.npmrc not found. If you have private npm packages, CI may fail."
+  echo "  Run: npm login --scope=@nervusdb --registry=https://npm.pkg.github.com"
+  echo ""
+fi
+
+# Build and run Docker CI test (passing npm credentials via BuildKit secret)
+# The --secret flag mounts ~/.npmrc as a secret, which is NOT stored in the image
+if DOCKER_BUILDKIT=1 docker build \
+  --secret id=npmrc,src="$HOME/.npmrc" \
+  -f Dockerfile.ci-test \
+  -t nervusdb-mcp-ci-test \
+  . > /tmp/docker-ci-build.log 2>&1; then
+  echo "✅ All CI checks passed! Proceeding with push..."
+  rm -f /tmp/docker-ci-build.log
+  exit 0
+else
+  echo "❌ CI checks failed! Push blocked."
+  echo ""
+  echo "View full log:"
+  echo "  cat /tmp/docker-ci-build.log"
+  echo ""
+  echo "Or run manually:"
+  echo "  DOCKER_BUILDKIT=1 docker build --secret id=npmrc,src=\$HOME/.npmrc -f Dockerfile.ci-test -t nervusdb-mcp-ci-test ."
+  echo ""
+  exit 1
+fi
